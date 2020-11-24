@@ -65,6 +65,33 @@ class PdoGsb{
 	}
 
 /**
+ * Retourne vrai ou faux en fonction du mot de passe donné
+ * 
+ * @param $id
+ * @param $mdp
+ * @return True ou False 
+ */
+	public function checkPassword($id,$Pwd){
+		try{
+			$Pwd = substr(hash('sha256',$Pwd),0,-44);
+			$strReq = "SELECT visiteur.mdp FROM visiteur WHERE visiteur.id = :id AND visiteur.mdp = :pwd";
+			$req = $this->monPdo->prepare($strReq);
+			$req->bindParam(':id',$id);
+			$req->bindParam(':pwd',$Pwd);
+			$req->execute();
+			$reponse = $req->fetch();
+			if(empty($reponse)){
+				return false;
+			}else{
+				return true;
+			}
+
+		}catch(PDOException $e){
+			echo "Echec lors de la vérification du mot de passe : " . $e->getMessage();
+		}
+	}
+
+/**
  * Retourne les informations d'un visiteur
  
  * @param $login 
