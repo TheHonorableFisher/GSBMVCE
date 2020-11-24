@@ -8,11 +8,11 @@ switch($action){
 		// Afin de sélectionner par défaut le dernier mois dans la zone de liste
 		// on demande toutes les clés, et on prend la première,
 		// les mois étant triés décroissants
-		var_dump($lesMois);
+		//var_dump($lesMois);
 		$lesCles = array_keys( $lesMois );
 		$moisASelectionner = $lesCles[0];
 		include("vues/v_listeMois.php");
-                include("vues/v_listeMoisFin.php");
+		include("vues/v_listeMoisFin.php");
 		break;
 	}
 	case 'voirEtatFrais':{
