@@ -46,7 +46,7 @@ class PdoGsb{
 		return self::$monPdoGsb;  
 	}
 /**
- * Change le mot de passe pour un utilisateur donné
+ * Change le mot de passe pour un utilisateur donnée
  * 
  * @param $id
  * @param $newPwd
