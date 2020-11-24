@@ -17,7 +17,7 @@
 class PdoGsb{   		
       	private $serveur='mysql:host=localhost';
       	private $bdd='dbname=gsb_frais';   		
-      	private $user='userGsb' ;    		
+      	private $user='userGSB' ;    		
       	private $mdp='secret' ;	
         private $monPdo; //objet de connection à la bdd
 	private static $monPdoGsb=null; //instance unique de la classe
@@ -45,6 +45,25 @@ class PdoGsb{
 		}
 		return self::$monPdoGsb;  
 	}
+/**
+ * Change le mot de passe pour un utilisateur donné
+ * 
+ * @param $id
+ * @param $newPwd
+ */
+	public function changePassword($id,$newPwd){
+		try{
+			$newPwd = hash('sha256',$newPwd);
+			$strReq = "UPDATE visiteur SET visiteur.mdp=:mdp WHERE visiteur.id=:id";
+			$req = $this->monPdo->prepare($strReq);
+			$req->bindParam(':id',$id);
+			$req->bindParam(':mdp',$newPwd);
+			$req->execute();
+		}catch(PDOException $e){
+			echo 'Echec lors du changement de mot de passe : ' . $e->getMessage();
+		}	
+	}
+
 /**
  * Retourne les informations d'un visiteur
  

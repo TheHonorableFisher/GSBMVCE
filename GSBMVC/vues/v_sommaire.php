@@ -9,13 +9,16 @@
            
         <ul class="list-unstyled">
 			
-           <li>
+            <li>
               <a href="index.php?uc=gererFrais&action=saisirFrais" title="Saisie fiche de frais ">Saisie fiche de frais</a>
-           </li>
-           <li>
+            </li>
+            <li>
               <a href="index.php?uc=etatFrais&action=selectionnerMois" title="Consultation de mes fiches de frais">Mes fiches de frais</a>
-           </li>
- 	   <li>
+            </li>
+            <li>
+                <a href="index.php?uc=changerMDP&action=changerLeMotDePasse" title="Changer le mot de passe">Changer le mot de passe</a>
+            </li>
+ 	        <li>
               <a href="index.php?uc=connexion&action=deconnexion" title="Se déconnecter">Déconnexion</a>
            </li>
          </ul>
