@@ -254,10 +254,7 @@ class PdoGsb{
 		$dernierMois = $this->dernierMoisSaisi($idVisiteur);
 		$laDerniereFiche = $this->getLesInfosFicheFrais($idVisiteur,$dernierMois);
 		if($laDerniereFiche['idEtat']=='CR'){
-			//à faire : appeler une fonction qui calcule le montant de la fiche frais, fonction à écrire
-			//à faire : appeler une fonction qui mettre à jour l'état et le montant de la fiche frais, fonction à modifier
 			$mt = $this->calculMontantFrais($idVisiteur,$dernierMois);
-			//var_dump($mt);
 			$this->majEtatFicheFrais($idVisiteur, $dernierMois,'CL', $mt);
 				
 		}

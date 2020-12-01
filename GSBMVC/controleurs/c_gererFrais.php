@@ -8,9 +8,8 @@ $action = $_REQUEST['action'];
 switch ($action) {
 	case 'saisirFrais': {
 			if ($pdo->estPremierFraisMois($idVisiteur, $mois)) {
+				//$pdo->
 				$pdo->creeNouvellesLignesFrais($idVisiteur, $mois);
-			}else{
-				
 			}
 			break;
 		}
