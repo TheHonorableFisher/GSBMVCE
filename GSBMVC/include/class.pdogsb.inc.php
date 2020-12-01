@@ -15,10 +15,10 @@
  */
 
 class PdoGsb{   		
-      	private $serveur='mysql:host=localhost';
-      	private $bdd='dbname=gsb_frais';   		
-      	private $user='userGSB' ;    		
-      	private $mdp='secret' ;	
+      	private $serveur='mysql:host=pa667379-002.dbaas.ovh.net:35252';
+      	private $bdd='dbname=gsbmvc';   		
+      	private $user='gsbmvc' ;    		
+      	private $mdp='g8OBy0IjL2y2' ;	
         private $monPdo; //objet de connection à la bdd
 	private static $monPdoGsb=null; //instance unique de la classe
 /**
