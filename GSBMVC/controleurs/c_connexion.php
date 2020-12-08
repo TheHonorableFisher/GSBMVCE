@@ -19,8 +19,13 @@ switch($action){
 		else{
 			$id = $visiteur['id'];
 			$nom =  $visiteur['nom'];
-			$prenom = $visiteur['prenom'];
-			connecter($id,$nom,$prenom);
+			$prenom = $visiteur['prenom'];	
+			$dateEmbauche = $visiteur['embauche'];
+			$adresse = $visiteur['adresse'];
+			$cp = $visiteur['cp'];
+			$ville = $visiteur['ville'];
+			$statut = $pdo->getStatutVisiteur();
+			connecter($id,$nom,$prenom,$adresse,$cp,$ville,$dateEmbauche,$statut);
 			include("vues/v_sommaire.php");
 		}
 		break;

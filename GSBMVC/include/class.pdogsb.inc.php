@@ -99,15 +99,37 @@ class PdoGsb{
  * @return l'id, le nom et le prénom sous la forme d'un tableau associatif 
 */
 	public function getInfosVisiteur($login, $mdp){
-		$mdp = substr(hash('sha256',$mdp),0,-44);
-		$strReq = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom from visiteur 
-		where visiteur.login=:login and visiteur.mdp=:mdp";
-		$req = $this->monPdo->prepare($strReq);
-		$req->bindParam(':login', $login);
-		$req->bindParam(':mdp', $mdp);
-		$req->execute();
-		$ligne  = $req->fetch();
-		return $ligne;
+		try{
+			$mdp = substr(hash('sha256',$mdp),0,-44);
+			$strReq = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom, visiteur.adresse as adresse, visiteur.cp as cp, visiteur.ville as ville, visiteur.dateEmbauche as embauche from visiteur 
+			where visiteur.login=:login and visiteur.mdp=:mdp";
+			$req = $this->monPdo->prepare($strReq);
+			$req->bindParam(':login', $login);
+			$req->bindParam(':mdp', $mdp);
+			$req->execute();
+			$ligne = $req->fetch();
+			return $ligne;
+		}catch(PDOException $e){
+			echo "Erreur requête : " . $e->getMessage();
+		}
+	}
+
+/**
+ * Retourne le statut d'un visiteur
+ * 
+ * @return le role de l'utilisateur
+ */
+	public function getStatutVisiteur(){
+		try{
+			$strReq = "SELECT aff_role FROM vaffectation where idVisiteur = :id";
+			$req = $this->monPdo->prepare($strReq);
+			$req->bindParam(':id',$_SESSION['idVisiteur']);
+			$req->execute();
+			$role = $req->fetch();
+			return $role;
+		}catch(PDOException $e){
+			echo "Erreur requête : " . $e->getMessage();
+		}
 	}
 
 /**

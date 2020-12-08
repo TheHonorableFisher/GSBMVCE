@@ -22,6 +22,9 @@ switch($uc){
 	case 'changerMDP' :{
 		include("controleurs/c_changerMdp.php");break;
 	}
+	case 'monCompte':{
+		include("controleurs/c_monCompte.php");break;
+	}
 }
 include("vues/v_pied.php") ;
 ?>
