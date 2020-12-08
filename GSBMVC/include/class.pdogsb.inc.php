@@ -380,7 +380,7 @@ class PdoGsb{
  */
  
 	public function majEtatFicheFrais($idVisiteur,$mois,$etat, $mtValide){
-		$strReq = "update ficheFrais set idEtat = :etat, dateModif = now() , montantValide = :mt
+		$strReq = "update fichefrais set idEtat = :etat, dateModif = now() , montantValide = :mt
 		where fichefrais.idvisiteur =:idVisiteur and fichefrais.mois = :mois";
 		$req = $this->monPdo->prepare($strReq);
 		$req->bindParam(':etat', $etat);
@@ -414,10 +414,8 @@ class PdoGsb{
 			}          
             foreach($LesFraisHorsForfait as $unFraisHorsForfait){
                     $montant += $unFraisHorsForfait['montant'];
-            }
-			
+            }			
             return $montant;
 		}
-
 	}
 	?>
