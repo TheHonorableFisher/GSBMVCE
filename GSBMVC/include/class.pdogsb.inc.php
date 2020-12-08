@@ -91,6 +91,24 @@ class PdoGsb{
 		}
 	}
 
+	/**
+	 * Retour l'id, le nom, le prénom, le rôle et la région de tout le personnel
+	 * 
+	 * @return tableau de valeur associatif
+	 */
+	public function getPersonnel(){
+		try{
+			$strReq = 'SELECT DISTINCT vaffectation.idVisiteur, visiteur.nom, visiteur.prenom, vaffectation.aff_role, vaffectation.aff_reg
+			FROM vaffectation INNER JOIN visiteur on vaffectation.idVisiteur = visiteur.id ORDER BY visiteur.nom';
+			$req = $this->monPdo->prepare($strReq);
+			$req->execute();
+			$reponse = $req->fetchAll();
+			return $reponse;
+		}catch(PDOException $e){
+			echo "Echec récupération personnel : " . $e->getMessage();
+		}
+	}
+
 /**
  * Retourne les informations d'un visiteur
  
@@ -130,6 +148,39 @@ class PdoGsb{
 		}catch(PDOException $e){
 			echo "Erreur requête : " . $e->getMessage();
 		}
+	}
+
+/**
+ * Retourne les regions possible pour un visiteur
+ * 
+ * @param $id
+ * @return Tableau de région 
+ */
+	public function getRegionVisiteur($id){
+		try{
+			$strReq = "SELECT region.reg_nom 
+			FROM vaffectation INNER JOIN region ON vaffectation.aff_sec = region.sec_code 
+			WHERE vaffectation.idVisiteur = :id";
+			$req = $this->monPdo->prepare($strReq);
+			$req->bindParam(':id',$id);
+			$req->execute();
+			$regions = $req->fetchAll();
+			return $regions;
+		}catch(PDOException $e){
+			echo "Erreur requête : " . $e->getMessage();
+		}
+	}
+
+	public function setRegionAndRoleVisiteur($id,$region,$role){
+
+	}
+
+	public function setRegionVisiteur($id,$regions){
+
+	}
+
+	public function setRoleVisiteur($id,$role){
+
 	}
 
 /**

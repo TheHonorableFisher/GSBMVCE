@@ -18,6 +18,12 @@
             <li>
               <a href="index.php?uc=etatFrais&action=selectionnerMois" title="Consultation de mes fiches de frais">Mes fiches de frais</a>
             </li>
+            <?php
+              if($_SESSION['statut'] === 'Responsable'){
+                echo '<p>---------------------</p>';
+                echo '<a href="index.php?uc=gererPersonnel&action=changerInfos" title="Changer infos personnel">Gérer personnel</a>';
+              }
+            ?>
             <p>---------------------</p>
             <li>
               <a href="index.php?uc=monCompte&action=afficherInformation" title="Mon compte">Mon compte</a>

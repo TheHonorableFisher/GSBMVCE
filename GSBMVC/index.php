@@ -25,6 +25,9 @@ switch($uc){
 	case 'monCompte':{
 		include("controleurs/c_monCompte.php");break;
 	}
+	case 'gererPersonnel':{
+		include("controleurs/c_gererPersonnel.php");break;
+	}
 }
 include("vues/v_pied.php") ;
 ?>
