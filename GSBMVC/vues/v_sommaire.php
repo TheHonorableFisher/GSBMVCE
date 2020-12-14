@@ -23,6 +23,9 @@
                 echo '<p>---------------------</p>';
                 echo '<a href="index.php?uc=gererPersonnel&action=changerInfos" title="Changer infos personnel">Gérer personnel</a>';
               }
+              if($_SESSION['statut'] === 'Responsable' || $_SESSION['statut'] === 'Délégué'){
+                echo '</br><a href="index.php?uc=suivreFrais&action=suivitFrais" title="Suivre fiche de frais">Suivre fiche de frais</a>';
+              }
             ?>
             <p>---------------------</p>
             <li>

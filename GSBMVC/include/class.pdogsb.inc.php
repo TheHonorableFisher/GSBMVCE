@@ -99,7 +99,8 @@ class PdoGsb{
 	public function getPersonnel(){
 		try{
 			$strReq = 'SELECT DISTINCT vaffectation.idVisiteur, visiteur.nom, visiteur.prenom, vaffectation.aff_role, vaffectation.aff_reg
-			FROM vaffectation INNER JOIN visiteur on vaffectation.idVisiteur = visiteur.id ORDER BY visiteur.nom';
+			FROM vaffectation INNER JOIN visiteur on vaffectation.idVisiteur = visiteur.id WHERE vaffectation.aff_role = "Visiteur" OR vaffectation.aff_role = "Délégué"   
+			ORDER BY visiteur.nom ASC ,vaffectation.aff_role ASC';
 			$req = $this->monPdo->prepare($strReq);
 			$req->execute();
 			$reponse = $req->fetchAll();
@@ -171,16 +172,32 @@ class PdoGsb{
 		}
 	}
 
-	public function setRegionAndRoleVisiteur($id,$region,$role){
-
-	}
-
-	public function setRegionVisiteur($id,$regions){
-
-	}
-
-	public function setRoleVisiteur($id,$role){
-
+	// Finir la requete et faire les commentaires
+	public function updateInformationPerso($id, $region = "", $role = "")
+	{
+		try {
+			if ($region != "" && $role != "") {
+				$strReq = "";
+				$req = $this->monPdo->prepare($strReq);
+				$req->bindParam('', $region);
+				$req->bindParam('', $role);
+				$req->execute();
+			} elseif ($region == "" && $role != "") {
+				$strReq = "";
+				$req = $this->monPdo->prepare($strReq);
+				$req->bindParam('', $role);
+				$req->execute();
+			} elseif ($region != "" && $role == "") {
+				$strReq = "";
+				$req = $this->monPdo->prepare($strReq);
+				$req->bindParam('', $region);
+				$req->execute();
+			}else{
+				throw new ErrorException("Erreur Region et Role null, impossible de mettre à jour les informations du personnel");
+			}
+		} catch (PDOException $e) {
+			echo "Erreur : " . $e->getMessage();
+		}
 	}
 
 /**
