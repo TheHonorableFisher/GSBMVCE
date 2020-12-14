@@ -139,7 +139,7 @@ function moisActuel(){
 	$dateActuelle=date("d/m/Y");
 	@list($jour,$mois,$annee) = explode('/',$dateActuelle);
 	//$annee--;
-	$moisActuel = $annee.$mois;
+	$moisActuel = $mois;
 	return $moisActuel; 
 }
 /**
@@ -152,9 +152,31 @@ function moisAnPasse(){
 	$dateActuelle=date("d/m/Y");
 	@list($jour,$mois,$annee) = explode('/',$dateActuelle);
 	$annee--;
-	$moisActuel = $annee.$mois;
+	$moisActuel = $mois;
 	return $moisActuel; 
 }
+
+/**
+ * Calcal les 12 derniers à partir du mois actuelle
+ * 
+ * @return tableau contenant les 12 derniers mois dans l'ordre
+ */
+function get12DerniersMois(){
+	$tabMoisRetourner = array();
+	$dateActuelle = date('Y-m-d');
+	for($i = 0; $i < moisAnPasse();$i++){
+		if($i === 0){
+			$tabMoisRetourner[$i] = array('month' => date('m'));
+		}
+		else{
+			$mois = date('m',strtotime("-1 month",strtotime($dateActuelle)));
+			$tabMoisRetourner[$i] = array('month' => $mois);
+			$dateActuelle = date("Y-".$mois."-d");
+		}
+	}
+	return $tabMoisRetourner;
+}
+
 /**
  * Vérifie la validité du format d'une date française jj/mm/aaaa 
  
