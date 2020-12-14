@@ -10,7 +10,7 @@
                         <?php
                             $regions = $pdo->getRegionVisiteur($idVisiteur);
                             foreach ($regions as $key => $value) {
-                                echo '<option value="$value[0]">' . $value[0] . '</option>';
+                                echo '<option value=' . "$value[0]" . '>' . $value[0] . '</option>';
                             }
                         ?>
                     </select>

@@ -32,7 +32,7 @@ function connecter($id,$nom,$prenom,$adresse,$cp,$ville,$dateEmbauche,$statut){
 	$_SESSION['cp'] = $cp;
 	$_SESSION['ville'] = $ville;
 	$_SESSION['embauche'] = $dateEmbauche;
-	$_SESSION['statut'] = $statut[0];
+	$_SESSION['statut'] = $statut;
 }
 /**
  * Détruit la session active
