@@ -26,7 +26,7 @@ function estConnecte()
  * @param $cp
  * @param $ville
  */
-function connecter($id, $nom, $prenom, $adresse, $cp, $ville, $dateEmbauche, $statut, $region, $secteur)
+function connecter($id, $nom, $prenom, $adresse, $cp, $ville, $dateEmbauche, $region, $secteur)
 {
 	$_SESSION['idVisiteur'] = $id;
 	$_SESSION['nom'] = $nom;
@@ -35,9 +35,12 @@ function connecter($id, $nom, $prenom, $adresse, $cp, $ville, $dateEmbauche, $st
 	$_SESSION['cp'] = $cp;
 	$_SESSION['ville'] = $ville;
 	$_SESSION['embauche'] = $dateEmbauche;
-	$_SESSION['statut'] = $statut;
 	$_SESSION['region'] = $region;
 	$_SESSION['secteur'] = $secteur;
+}
+
+function setStatut($statut){
+	$_SESSION['statut'] = $statut;
 }
 /**
  * Détruit la session active
