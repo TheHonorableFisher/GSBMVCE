@@ -3,6 +3,7 @@ include_once('vues/v_sommaire.php');
 $action = $_REQUEST['action'];
 switch($action){
     case 'changerInfos' : {
+        $personnels = $pdo->getPersonnel();
         include('vues/v_changerInfoPersonnel.php');
         break;
     }

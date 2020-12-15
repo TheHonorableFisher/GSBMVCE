@@ -3,12 +3,16 @@ include("vues/v_sommaire.php");
 $action = $_REQUEST['action'];
 
 switch($action){
-    case 'suivitFrais' : {
-        // A finir
+    case 'afficheMois' : {
 
-        var_dump(get12DerniersMois()) ;
+        $listeMois = get12DerniersMois();
 
-        
+        include('vues/v_moisFicheFrais.php');
+        break;
+    }
+    case 'afficheFicheFrais' : {
+
+        $mois = $_REQUEST['mois'];
         break;
     }
 }

@@ -6,7 +6,7 @@
                 <div class="form-group">
                     <label>Choisir sa nouvelle région : </label>
                     <select name="newRegion" id="newRegion">
-                        <option value="">-- Choisir une option ou laisser celle-ci</option>
+                        <option value="">-- Choisir une option</option>
                         <?php
                             $regions = $pdo->getRegionVisiteur($idVisiteur);
                             foreach ($regions as $key => $value) {
@@ -18,7 +18,7 @@
                 <div class="form-group">
                     <label>Choisir son rôle : </label>          
                     <select name="newRole" id="newRole">
-                        <option value="">-- Choisir une option ou laisser celle-ci</option>
+                        <option value="">-- Choisir une option</option>
                         <option value="Visiteur">Visiteur</option>
                         <option value="Délégué">Délégué</option>
                     </select>
