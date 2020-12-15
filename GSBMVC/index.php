@@ -31,6 +31,9 @@ switch($uc){
 	case 'gererPersonnel':{
 		include("controleurs/c_gererPersonnel.php");break;
 	}
+	case 'validerFrais':{
+		include("controleurs/c_validerFrais.php");break;
+	}
 }
 include("vues/v_pied.php") ;
 ?>
