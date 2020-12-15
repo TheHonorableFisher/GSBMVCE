@@ -504,4 +504,13 @@ class PdoGsb
 		}
 		return $montant;
 	}
+
+	public function getFicheCL($role){
+		if ($role == 'Délégué') {
+			
+		}
+		else {
+
+		}
+	}
 }
