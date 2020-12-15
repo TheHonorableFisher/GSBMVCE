@@ -1,4 +1,5 @@
 ﻿<?php
+
 /** 
  * Fonctions pour l'application GSB
  
@@ -6,12 +7,13 @@
  * @author Cheri Bibi
  * @version    1.0
  */
- /**
+/**
  * Teste si un quelconque visiteur est connecté
  * @return vrai ou faux 
  */
-function estConnecte(){
-  return isset($_SESSION['idVisiteur']);
+function estConnecte()
+{
+	return isset($_SESSION['idVisiteur']);
 }
 /**
  * Enregistre dans une variable session les infos d'un visiteur
@@ -24,10 +26,11 @@ function estConnecte(){
  * @param $cp
  * @param $ville
  */
-function connecter($id,$nom,$prenom,$adresse,$cp,$ville,$dateEmbauche,$statut,$region,$secteur){
-	$_SESSION['idVisiteur']= $id; 
-	$_SESSION['nom']= $nom;
-	$_SESSION['prenom']= $prenom;
+function connecter($id, $nom, $prenom, $adresse, $cp, $ville, $dateEmbauche, $statut, $region, $secteur)
+{
+	$_SESSION['idVisiteur'] = $id;
+	$_SESSION['nom'] = $nom;
+	$_SESSION['prenom'] = $prenom;
 	$_SESSION['adresse'] = $adresse;
 	$_SESSION['cp'] = $cp;
 	$_SESSION['ville'] = $ville;
@@ -39,7 +42,8 @@ function connecter($id,$nom,$prenom,$adresse,$cp,$ville,$dateEmbauche,$statut,$r
 /**
  * Détruit la session active
  */
-function deconnecter(){
+function deconnecter()
+{
 	session_destroy();
 }
 /**
@@ -47,34 +51,37 @@ function deconnecter(){
  
  * @param $madate au format  jj/mm/aaaa
  * @return la date au format anglais aaaa-mm-jj
-*/
-function dateFrancaisVersAnglais($maDate){
-	@list($jour,$mois,$annee) = explode('/',$maDate);
-	return date('Y-m-d',mktime(0,0,0,$mois,$jour,$annee));
+ */
+function dateFrancaisVersAnglais($maDate)
+{
+	@list($jour, $mois, $annee) = explode('/', $maDate);
+	return date('Y-m-d', mktime(0, 0, 0, $mois, $jour, $annee));
 }
 /**
  * Transforme une date au format format anglais aaaa-mm-jj vers le format français jj/mm/aaaa 
  
  * @param $madate au format  aaaa-mm-jj
  * @return la date au format format français jj/mm/aaaa
-*/
-function dateAnglaisVersFrancais($maDate){
-   @list($annee,$mois,$jour)=explode('-',$maDate);
-   $date="$jour"."/".$mois."/".$annee;
-   return $date;
+ */
+function dateAnglaisVersFrancais($maDate)
+{
+	@list($annee, $mois, $jour) = explode('-', $maDate);
+	$date = "$jour" . "/" . $mois . "/" . $annee;
+	return $date;
 }
 /**
  * retourne le mois au format aaaamm selon le jour dans le mois
  
  * @param $date au format  jj/mm/aaaa
  * @return le mois au format aaaamm
-*/
-function getMois($date){
-		@list($jour,$mois,$annee) = explode('/',$date);
-		if(strlen($mois) == 1){
-			$mois = "0".$mois;
-		}
-		return $annee.$mois;
+ */
+function getMois($date)
+{
+	@list($jour, $mois, $annee) = explode('/', $date);
+	if (strlen($mois) == 1) {
+		$mois = "0" . $mois;
+	}
+	return $annee . $mois;
 }
 
 /* gestion des erreurs*/
@@ -83,13 +90,14 @@ function getMois($date){
  
  * @param $valeur
  * @return vrai ou faux
-*/
-function estEntierPositif($valeur) {
-	return preg_match("/[^0-9]/", $valeur) == 0; 
+ */
+function estEntierPositif($valeur)
+{
+	return preg_match("/[^0-9]/", $valeur) == 0;
 	// le / est le délimiteur de regex, 
 	//^ signifie que l'on veut que la chaîne comporte au moins un caractère qui ne soit pas un chiffre (^= on ne veut pas)
 	//expression regulière == 0 --> Faux (donc tous les caractères sont des chiffres), on retourne vrai
-	
+
 }
 
 /**
@@ -97,8 +105,9 @@ function estEntierPositif($valeur) {
  
  * @param $tabEntiers : le tableau
  * @return vrai ou faux
-*/
-function estTableauEntiers($tabEntiers) {
+ */
+function estTableauEntiers($tabEntiers)
+{
 	$ok = true;
 	var_dump($tabEntiers);
 	// $tabentiers est un tableau cle/valeur, dans le foreach, on ne prend que la valeur : si la valeur est nulle, ce n'est pas un entier et on n'exécute pas le foreach
@@ -110,10 +119,10 @@ function estTableauEntiers($tabEntiers) {
 	} */
 	// correction plantage montant null
 	$lesCles = array_keys($tabEntiers);
-	foreach($lesCles as $unIdFrais){
-		if(($tabEntiers[$unIdFrais]) == "" || !estEntierPositif($tabEntiers[$unIdFrais])){
-			$ok=false; 
-	   }
+	foreach ($lesCles as $unIdFrais) {
+		if (($tabEntiers[$unIdFrais]) == "" || !estEntierPositif($tabEntiers[$unIdFrais])) {
+			$ok = false;
+		}
 	}
 	return $ok;
 }
@@ -122,40 +131,43 @@ function estTableauEntiers($tabEntiers) {
  
  * @param $dateTestee 
  * @return vrai ou faux
-*/
-function estDateDepassee($dateTestee){
-	$dateActuelle=date("d/m/Y");
-	@list($jour,$mois,$annee) = explode('/',$dateActuelle);
+ */
+function estDateDepassee($dateTestee)
+{
+	$dateActuelle = date("d/m/Y");
+	@list($jour, $mois, $annee) = explode('/', $dateActuelle);
 	$annee--;
-	$AnPasse = $annee.$mois.$jour;
-	@list($jourTeste,$moisTeste,$anneeTeste) = explode('/',$dateTestee);
-	return ($anneeTeste.$moisTeste.$jourTeste < $AnPasse); 
+	$AnPasse = $annee . $mois . $jour;
+	@list($jourTeste, $moisTeste, $anneeTeste) = explode('/', $dateTestee);
+	return ($anneeTeste . $moisTeste . $jourTeste < $AnPasse);
 }
 /**
  * calcul la date actuelle sous aaaamm
  
  * 
  * @return vrai ou faux
-*/
-function moisActuel(){
-	$dateActuelle=date("d/m/Y");
-	@list($jour,$mois,$annee) = explode('/',$dateActuelle);
+ */
+function moisActuel()
+{
+	$dateActuelle = date("d/m/Y");
+	@list($jour, $mois, $annee) = explode('/', $dateActuelle);
 	//$annee--;
 	$moisActuel = $mois;
-	return $annee.$moisActuel; 
+	return $annee . $moisActuel;
 }
 /**
  * calcul la date actuelle - 1 an sous aaaamm
  
  * 
  * @return vrai ou faux
-*/
-function moisAnPasse(){
-	$dateActuelle=date("d/m/Y");
-	@list($jour,$mois,$annee) = explode('/',$dateActuelle);
+ */
+function moisAnPasse()
+{
+	$dateActuelle = date("d/m/Y");
+	@list($jour, $mois, $annee) = explode('/', $dateActuelle);
 	$annee--;
-	$moisActuel = $annee.$mois;
-	return $moisActuel; 
+	$moisActuel = $annee . $mois;
+	return $moisActuel;
 }
 
 /**
@@ -163,38 +175,39 @@ function moisAnPasse(){
  * 
  * @return tableau contenant les 12 derniers mois dans l'ordre
  */
-function get12DerniersMois(){
+function get12DerniersMois()
+{
 	$tabMois = array(
-		0 => 'Janvier',
-		1 => 'Février',
-		2 => 'Mars',
-		3 => 'Avril',
-		4 => 'Mai',
-		5 => 'Juin',
-		6 => 'Juillet',
-		7 => 'Août',
-		8 => 'Septembre',
-		9 => 'Octobre',
-		10 => 'Novembre',
-		11 => 'Décembre'
+		11 => 'Janvier',
+		10 => 'Février',
+		9 => 'Mars',
+		8 => 'Avril',
+		7 => 'Mai',
+		6 => 'Juin',
+		5 => 'Juillet',
+		4 => 'Août',
+		3 => 'Septembre',
+		2 => 'Octobre',
+		1 => 'Novembre',
+		0 => 'Décembre'
 	);
-	
+
 	$arParMois = array();
 	$date_courant = moisActuel();
 
-	for($i = 0; $i < 12; $i++){
-		if($i === 0){
-			 $arParMois[$i] = array( 
-				 date("Y-m") => $tabMois[$i]
-			 );
-		 }else{
-			 //- 1 mois à la date du jour
-			 $mois = date("Y-m", strtotime("-1 month", strtotime($date_courant)));
-			 $arParMois[$i] = array(
-				 $mois => $tabMois[$i]
-			 );
-			 $date_courant =  date($mois);
-		 }
+	for ($i = 0; $i < 12; $i++) {
+		if ($i === 0) {
+			$arParMois[$i] = array(
+				date("Y-m") => $tabMois[$i]
+			);
+		} else {
+			//- 1 mois à la date du jour
+			$mois = date("Y-m", strtotime("-1 month", strtotime($date_courant)));
+			$arParMois[$i] = array(
+				$mois => $tabMois[$i]
+			);
+			$date_courant =  date($mois);
+		}
 	}
 	return $arParMois;
 }
@@ -203,12 +216,24 @@ function get12DerniersMois(){
 /**
  * Tri les mois à affiché en fonction du mois passé en paramètre
  * 
- * @param Mois
+ * @param TabFiche tableau de fiche de frais
+ * @param Mois mois sous la forme yyyymm
  * 
  * @return tableau
  */
-function triMoisFiche(){
-
+function triMoisFiche($tabFiche, $mois)
+{
+	$tabFicheTri = array();
+	foreach ($tabFiche as $key => $value) {
+		foreach ($value as $key2 => $value2) {
+			if ($value2 == $mois) {
+				$tabFicheTri += array(
+					$key => $value
+				);
+			}
+		}
+	}
+	return $tabFicheTri;
 }
 
 /**
@@ -216,23 +241,22 @@ function triMoisFiche(){
  
  * @param $date 
  * @return vrai ou faux
-*/
-function estDateValide($date){
-	$tabDate = explode('/',$date);
+ */
+function estDateValide($date)
+{
+	$tabDate = explode('/', $date);
 	$dateOK = true;
 	if (count($tabDate) != 3) {
-	    $dateOK = false;
-    }
-    else {
+		$dateOK = false;
+	} else {
 		if (!estTableauEntiers($tabDate)) {
 			$dateOK = false;
-		}
-		else {
+		} else {
 			if (!checkdate($tabDate[1], $tabDate[0], $tabDate[2])) {
 				$dateOK = false;
 			}
 		}
-    }
+	}
 	return $dateOK;
 }
 
@@ -241,8 +265,9 @@ function estDateValide($date){
  
  * @param $lesFrais 
  * @return vrai ou faux
-*/
-function lesQteFraisValides($lesFrais){
+ */
+function lesQteFraisValides($lesFrais)
+{
 	return estTableauEntiers($lesFrais);
 }
 /**
@@ -254,54 +279,52 @@ function lesQteFraisValides($lesFrais){
  * @param $libelle 
  * @param $montant
  */
-function valideInfosFrais($dateFrais,$libelle,$montant){
-	if($dateFrais==""){
-		ajouterErreur("Le champ date ne doit pas être vide","HorsForfait");
-	}
-	else{
-		if(!estDatevalide($dateFrais)){
-			ajouterErreur("Date invalide","HorsForfait");
-		}	
-		else{
-			if(estDateDepassee($dateFrais)){
-				ajouterErreur("date d'enregistrement du frais dépassé, plus de 1 an","HorsForfait");
-			}			
+function valideInfosFrais($dateFrais, $libelle, $montant)
+{
+	if ($dateFrais == "") {
+		ajouterErreur("Le champ date ne doit pas être vide", "HorsForfait");
+	} else {
+		if (!estDatevalide($dateFrais)) {
+			ajouterErreur("Date invalide", "HorsForfait");
+		} else {
+			if (estDateDepassee($dateFrais)) {
+				ajouterErreur("date d'enregistrement du frais dépassé, plus de 1 an", "HorsForfait");
+			}
 		}
 	}
-	if($libelle == ""){
-		ajouterErreur("Le champ description ne peut pas être vide","HorsForfait");
+	if ($libelle == "") {
+		ajouterErreur("Le champ description ne peut pas être vide", "HorsForfait");
 	}
-	if($montant == ""){
-		ajouterErreur("Le champ montant ne peut pas être vide","HorsForfait");
+	if ($montant == "") {
+		ajouterErreur("Le champ montant ne peut pas être vide", "HorsForfait");
+	} else
+		if (!is_numeric($montant)) {
+		ajouterErreur("Le champ montant doit être numérique", "HorsForfait");
 	}
-	else
-		if( !is_numeric($montant) ){
-			ajouterErreur("Le champ montant doit être numérique","HorsForfait");
-		}
 }
 /**
  * Ajoute le libellé d'une erreur au tableau des erreurs 
  
  * @param $msg : le libellé de l'erreur 
  */
-function ajouterErreur($msg, $form){
-   if (! isset($_REQUEST['erreurs'])){
-      $_REQUEST['erreurs']=array();
-      $_REQUEST['erreurForm']=$form;
-	} 
-   $_REQUEST['erreurs'][]=$msg;
+function ajouterErreur($msg, $form)
+{
+	if (!isset($_REQUEST['erreurs'])) {
+		$_REQUEST['erreurs'] = array();
+		$_REQUEST['erreurForm'] = $form;
+	}
+	$_REQUEST['erreurs'][] = $msg;
 }
 /**
  * Retoune le nombre de lignes du tableau des erreurs 
  
  * @return le nombre d'erreurs
  */
-function nbErreurs(){
-   if (!isset($_REQUEST['erreurs'])){
-	   return 0;
-	}
-	else{
-	   return count($_REQUEST['erreurs']);
+function nbErreurs()
+{
+	if (!isset($_REQUEST['erreurs'])) {
+		return 0;
+	} else {
+		return count($_REQUEST['erreurs']);
 	}
 }
-?>

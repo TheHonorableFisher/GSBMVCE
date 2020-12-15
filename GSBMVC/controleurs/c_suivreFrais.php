@@ -16,7 +16,10 @@ switch($action){
         $mois = str_replace('-','',$mois);
 
         $listeFiche = $pdo->getFiche($_SESSION['statut'],'RB');
-        //include('vues/v_afficheFicheFrais');
+       
+        $listeFiche = triMoisFiche($listeFiche,$mois);
+       
+        include('vues/v_afficheFicheFrais.php');
         break;
     }
 }
