@@ -7,7 +7,9 @@
             <?php echo $_SESSION['prenom']."  ".$_SESSION['nom']  ?>
         </h4>
         <h6>
-            <?php echo $_SESSION['statut'] ?>
+            <?php 
+            echo $_SESSION['statut'] 
+            ?>
         </h6>
            
         <ul class="list-unstyled">
