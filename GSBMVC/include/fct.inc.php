@@ -24,7 +24,7 @@ function estConnecte(){
  * @param $cp
  * @param $ville
  */
-function connecter($id,$nom,$prenom,$adresse,$cp,$ville,$dateEmbauche,$statut){
+function connecter($id,$nom,$prenom,$adresse,$cp,$ville,$dateEmbauche,$statut,$region){
 	$_SESSION['idVisiteur']= $id; 
 	$_SESSION['nom']= $nom;
 	$_SESSION['prenom']= $prenom;
@@ -33,6 +33,7 @@ function connecter($id,$nom,$prenom,$adresse,$cp,$ville,$dateEmbauche,$statut){
 	$_SESSION['ville'] = $ville;
 	$_SESSION['embauche'] = $dateEmbauche;
 	$_SESSION['statut'] = $statut;
+	$_SESSION['region'] = $region;
 }
 /**
  * Détruit la session active
@@ -140,7 +141,7 @@ function moisActuel(){
 	@list($jour,$mois,$annee) = explode('/',$dateActuelle);
 	//$annee--;
 	$moisActuel = $mois;
-	return $moisActuel; 
+	return $annee.$moisActuel; 
 }
 /**
  * calcul la date actuelle - 1 an sous aaaamm
@@ -152,29 +153,32 @@ function moisAnPasse(){
 	$dateActuelle=date("d/m/Y");
 	@list($jour,$mois,$annee) = explode('/',$dateActuelle);
 	$annee--;
-	$moisActuel = $mois;
+	$moisActuel = $annee.$mois;
 	return $moisActuel; 
 }
 
 /**
- * Calcal les 12 derniers à partir du mois actuelle
+ * retourne les 12 mois de l'année
  * 
  * @return tableau contenant les 12 derniers mois dans l'ordre
  */
 function get12DerniersMois(){
-	$tabMoisRetourner = array();
-	$dateActuelle = date('Y-m-d');
-	for($i = 0; $i < moisAnPasse();$i++){
-		if($i === 0){
-			$tabMoisRetourner[$i] = array('month' => date('m'));
-		}
-		else{
-			$mois = date('m',strtotime("-1 month",strtotime($dateActuelle)));
-			$tabMoisRetourner[$i] = array('month' => $mois);
-			$dateActuelle = date("Y-".$mois."-d");
-		}
-	}
-	return $tabMoisRetourner;
+	$tabMois = array(
+		0 => 'Janvier',
+		1 => 'Février',
+		2 => 'Mars',
+		3 => 'Avril',
+		4 => 'Mai',
+		5 => 'Juin',
+		6 => 'Juillet',
+		7 => 'Août',
+		8 => 'Septembre',
+		9 => 'Octobre',
+		10 => 'Novembre',
+		11 => 'Décembre'
+	);
+	
+	return $tabMois;
 }
 
 /**

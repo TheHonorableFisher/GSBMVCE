@@ -24,11 +24,15 @@ switch($action){
 			$adresse = $visiteur['adresse'];
 			$cp = $visiteur['cp'];
 			$ville = $visiteur['ville'];
+			$region = $visiteur['region'];
 			$statut = $pdo->getStatutVisiteur();
-			connecter($id,$nom,$prenom,$adresse,$cp,$ville,$dateEmbauche,$statut[0]);
+			connecter($id,$nom,$prenom,$adresse,$cp,$ville,$dateEmbauche,$statut[0],$region);
 			include("vues/v_sommaire.php");
 		}
 		break;
+	}
+	case 'deconnexion': {
+		deconnecter();
 	}
 	default :{
 		include("vues/v_connexion.php");

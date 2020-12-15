@@ -24,7 +24,7 @@
                 echo '<a href="index.php?uc=gererPersonnel&action=changerInfos" title="Changer infos personnel">Gérer personnel</a>';
               }
               if($_SESSION['statut'] === 'Responsable' || $_SESSION['statut'] === 'Délégué'){
-                echo '</br><a href="index.php?uc=suivreFrais&action=suivitFrais" title="Suivre fiche de frais">Suivre fiche de frais</a>';
+                echo '</br><a href="index.php?uc=suivreFrais&action=afficheMois" title="Suivre fiche de frais">Suivre fiche de frais</a>';
                 echo '</br><a href="index.php?uc=validerFrais&action=validerFrais" title="Valider fiche de frais">Valider fiche de frais</a>';
               }
             ?>

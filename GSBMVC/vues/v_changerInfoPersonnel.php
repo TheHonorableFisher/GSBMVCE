@@ -7,8 +7,7 @@
                 <div class="form-group">
                     <label>Choisir un employé :</label>
                     <select name="personnels" id="personnels" required>
-                        <?php
-                            $personnels = $pdo->getPersonnel();
+                        <?php       
                             foreach ($personnels as $key => $value) {
                                 echo "<option value=" . $value[0] . ">" . $value[1] . " " . $value[2] . " - " . $value[3] . " - " . $value[4] . '</option>';
                             }

@@ -128,7 +128,8 @@ class PdoGsb
 	{
 		try {
 			$mdp = substr(hash('sha256', $mdp), 0, -44);
-			$strReq = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom, visiteur.adresse as adresse, visiteur.cp as cp, visiteur.ville as ville, visiteur.dateEmbauche as embauche from visiteur 
+			$strReq = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom, visiteur.adresse as adresse, visiteur.cp as cp, visiteur.ville as ville, visiteur.dateEmbauche as embauche, travailler.tra_reg as region
+			from visiteur INNER JOIN travailler on visiteur.id = travailler.idVisiteur
 			where visiteur.login=:login and visiteur.mdp=:mdp";
 			$req = $this->monPdo->prepare($strReq);
 			$req->bindParam(':login', $login);
