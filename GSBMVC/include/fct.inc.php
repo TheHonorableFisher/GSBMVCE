@@ -179,7 +179,36 @@ function get12DerniersMois(){
 		11 => 'Décembre'
 	);
 	
-	return $tabMois;
+	$arParMois = array();
+	$date_courant = moisActuel();
+
+	for($i = 0; $i < 12; $i++){
+		if($i === 0){
+			 $arParMois[$i] = array( 
+				 date("Y-m") => $tabMois[$i]
+			 );
+		 }else{
+			 //- 1 mois à la date du jour
+			 $mois = date("Y-m", strtotime("-1 month", strtotime($date_courant)));
+			 $arParMois[$i] = array(
+				 $mois => $tabMois[$i]
+			 );
+			 $date_courant =  date($mois);
+		 }
+	}
+	return $arParMois;
+}
+
+
+/**
+ * Tri les mois à affiché en fonction du mois passé en paramètre
+ * 
+ * @param Mois
+ * 
+ * @return tableau
+ */
+function triMoisFiche(){
+
 }
 
 /**

@@ -9,7 +9,9 @@
                         <option value="">-- Choisir une option</option>
                         <?php
                             foreach ($listeMois as $key => $value) {
-                                echo '<option value=' . "$value" . '>' . $value . '</option>';
+                                foreach($value as $key2 => $value2){
+                                    echo '<option value=' . "$key2" . '>' . $value2 . '</option>'; 
+                                }              
                             }
                         ?>
                     </select>

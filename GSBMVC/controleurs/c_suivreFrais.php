@@ -13,7 +13,10 @@ switch($action){
     case 'afficheFicheFrais' : {
 
         $mois = $_REQUEST['mois'];
-        var_dump($pdo->getFiche($_SESSION['statut'],'RB'));
+        $mois = str_replace('-','',$mois);
+
+        $listeFiche = $pdo->getFiche($_SESSION['statut'],'RB');
+        //include('vues/v_afficheFicheFrais');
         break;
     }
 }
