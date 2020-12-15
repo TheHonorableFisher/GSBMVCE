@@ -128,8 +128,8 @@ class PdoGsb
 	{
 		try {
 			$mdp = substr(hash('sha256', $mdp), 0, -44);
-			$strReq = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom, visiteur.adresse as adresse, visiteur.cp as cp, visiteur.ville as ville, visiteur.dateEmbauche as embauche, travailler.tra_reg as region
-			from visiteur INNER JOIN travailler on visiteur.id = travailler.idVisiteur
+			$strReq = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom, visiteur.adresse as adresse, visiteur.cp as cp, visiteur.ville as ville, visiteur.dateEmbauche as embauche, vaffectation.aff_reg as region, vaffectation.aff_sec as secteur
+			from visiteur INNER JOIN vaffectation on visiteur.id = vaffectation.idVisiteur
 			where visiteur.login=:login and visiteur.mdp=:mdp";
 			$req = $this->monPdo->prepare($strReq);
 			$req->bindParam(':login', $login);
@@ -506,12 +506,34 @@ class PdoGsb
 		return $montant;
 	}
 
-	public function getFicheCL($role){
+	public function getFiche($role,$type){
 		if ($role == 'Délégué') {
-			
+			$region = $_SESSION['region'];
+
+			$strReq = "SELECT DISTINCT fichefrais.idVisiteur,mois,nbJustificatifs,montantValide,dateModif
+			FROM fichefrais 
+			INNER JOIN vaffectation ON fichefrais.idVisiteur = vaffectation.idVisiteur 
+			INNER JOIN visiteur ON visiteur.id = fichefrais.idVisiteur 
+			WHERE idEtat = :type AND vaffectation.tra_role = 'Visiteur' AND vaffectation.tra_reg = :region";
+			$req = $this->monPdo->prepare($strReq);
+			$req->bindParam(':type',$type);
+			$req->bindParam(':region',$region);
+			$req->execute();
+			return $req->fetchAll();
 		}
 		else {
+			$secteur = $_SESSION['secteur'];
 
+			$strReq = "SELECT DISTINCT visiteur.nom, visiteur.prenom,mois,nbJustificatifs,montantValide,dateModif 
+			FROM fichefrais 
+			INNER JOIN vaffectation ON fichefrais.idVisiteur = vaffectation.idVisiteur 
+			INNER JOIN visiteur ON visiteur.id = fichefrais.idVisiteur 
+			WHERE idEtat = :type AND vaffectation.aff_sec = :secteur";
+			$req = $this->monPdo->prepare($strReq);
+			$req->bindParam(':type',$type);
+			$req->bindParam(':secteur',$secteur);
+			$req->execute();
+			return $req->fetchAll();
 		}
 	}
 }

@@ -25,8 +25,9 @@ switch($action){
 			$cp = $visiteur['cp'];
 			$ville = $visiteur['ville'];
 			$region = $visiteur['region'];
+			$secteur = $visiteur['secteur'];
 			$statut = $pdo->getStatutVisiteur();
-			connecter($id,$nom,$prenom,$adresse,$cp,$ville,$dateEmbauche,$statut[0],$region);
+			connecter($id,$nom,$prenom,$adresse,$cp,$ville,$dateEmbauche,$statut[0],$region,$secteur);
 			include("vues/v_sommaire.php");
 		}
 		break;

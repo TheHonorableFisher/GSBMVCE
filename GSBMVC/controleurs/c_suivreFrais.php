@@ -13,6 +13,7 @@ switch($action){
     case 'afficheFicheFrais' : {
 
         $mois = $_REQUEST['mois'];
+        var_dump($pdo->getFiche($_SESSION['statut'],'RB'));
         break;
     }
 }
