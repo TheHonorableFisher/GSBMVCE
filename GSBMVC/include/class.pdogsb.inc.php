@@ -510,11 +510,11 @@ class PdoGsb
 		if ($role == 'Délégué') {
 			$region = $_SESSION['region'];
 
-			$strReq = "SELECT DISTINCT fichefrais.idVisiteur,mois,nbJustificatifs,montantValide,dateModif
+			$strReq = "SELECT DISTINCT visiteur.nom, visiteur.prenom,mois,nbJustificatifs,montantValide,dateModif
 			FROM fichefrais 
 			INNER JOIN vaffectation ON fichefrais.idVisiteur = vaffectation.idVisiteur 
 			INNER JOIN visiteur ON visiteur.id = fichefrais.idVisiteur 
-			WHERE idEtat = :type AND vaffectation.tra_role = 'Visiteur' AND vaffectation.tra_reg = :region";
+			WHERE idEtat = :type AND vaffectation.aff_role = 'Visiteur' AND vaffectation.aff_reg = :region";
 			$req = $this->monPdo->prepare($strReq);
 			$req->bindParam(':type',$type);
 			$req->bindParam(':region',$region);
