@@ -536,4 +536,18 @@ class PdoGsb
 			return $req->fetchAll();
 		}
 	}
+
+	public function setValider($nom,$date){
+		$strReq = "SELECT id FROM visiteur WHERE nom = :nom";
+		$req = $this->monPdo->prepare($strReq);
+		$req->bindParam(':nom',$nom);
+		$req->execute();
+		$id = $req->fetchAll();
+
+		$strReq2 = "UPDATE fichefrais SET idEtat = 'VA' WHERE idVisiteur = :id AND mois = :date";
+		$req2 = $this->monPdo->prepare($strReq2);
+		$req2->bindParam(':id',$id[0]['id']);
+		$req2->bindParam(':date',$date);
+		$req2->execute();
+	}
 }

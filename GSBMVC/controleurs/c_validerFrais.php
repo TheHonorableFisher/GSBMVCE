@@ -10,7 +10,14 @@ switch($action){
         break;
     }
     case 'aplliquerValiderFrais' : {
-        echo('Validation');
+        //var_dump($_REQUEST['check_list']);
+        $fiches = $_REQUEST['check_list'];
+        foreach($fiches as $uneFiche){
+            $separe = explode('-', $uneFiche );
+            $nom = $separe[0];
+            $date = $separe[1];
+            $pdo->setValider($nom,$date);
+        }
         break;
     }
 }
