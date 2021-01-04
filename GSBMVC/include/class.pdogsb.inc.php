@@ -187,7 +187,7 @@ class PdoGsb
 	{
 		try {
 			$mdp = substr(hash('sha256', $mdp), 0, -44);
-			$strReq = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom, visiteur.adresse as adresse, visiteur.cp as cp, visiteur.ville as ville, visiteur.dateEmbauche as embauche, vaffectation.aff_reg as region, vaffectation.aff_sec as secteur
+			$strReq = "select visiteur.id as id, visiteur.nom as nom, visiteur.prenom as prenom, visiteur.adresse as adresse, visiteur.cp as cp, visiteur.ville as ville, visiteur.dateEmbauche as embauche, vaffectation.aff_reg as region, vaffectation.aff_sec as secteur, vaffectation.aff_role as statut
 			from visiteur INNER JOIN vaffectation on visiteur.id = vaffectation.idVisiteur
 			where visiteur.login=:login and visiteur.mdp=:mdp";
 			$req = $this->monPdo->prepare($strReq);
@@ -196,25 +196,6 @@ class PdoGsb
 			$req->execute();
 			$ligne = $req->fetch();
 			return $ligne;
-		} catch (PDOException $e) {
-			echo "Erreur requête : " . $e->getMessage();
-		}
-	}
-
-	/**
-	 * Retourne le statut d'un visiteur
-	 * 
-	 * @return le role de l'utilisateur
-	 */
-	public function getStatutVisiteur()
-	{
-		try {
-			$strReq = "SELECT aff_role FROM vaffectation where idVisiteur = :id";
-			$req = $this->monPdo->prepare($strReq);
-			$req->bindParam(':id', $_SESSION['idVisiteur']);
-			$req->execute();
-			$role = $req->fetch();
-			return $role;
 		} catch (PDOException $e) {
 			echo "Erreur requête : " . $e->getMessage();
 		}

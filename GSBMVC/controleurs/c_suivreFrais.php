@@ -18,8 +18,13 @@ switch($action){
         $listeFiche = $pdo->getFiche($_SESSION['statut'],'RB');
        
         $listeFiche = triMoisFiche($listeFiche,$mois);
-       
-        include('vues/v_afficheFicheFrais.php');
+
+        if(empty($listeFiche)){
+            include('vues/v_afficheFicheFraisNull.php');
+        }else{
+            include('vues/index.php');
+        }
+ 
         break;
     }
 }

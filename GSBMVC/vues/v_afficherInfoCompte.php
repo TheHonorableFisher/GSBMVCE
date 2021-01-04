@@ -14,4 +14,11 @@
             <p>Ville : <?php echo $city ?></p>
         </div>
     </div>
+    <div class="col-md-12 col-md-offset-2">
+        <div class="col-xs-12 col-sm-6 col-md-8">
+            <legend>Affectation</legend>
+            <p>Secteur : <?php echo $secteur ?></p>
+            <p>Region : <?php echo $region ?></p>
+        </div>
+    </div>
 </div>

@@ -14,6 +14,9 @@ switch($action){
         $cp = $_SESSION['cp'];
         $city = $_SESSION['ville'];
 
+        $secteur = $_SESSION['secteur'];
+        $region = $_SESSION['region'];
+
         include("vues/v_afficherInfoCompte.php");
         break;
     }
