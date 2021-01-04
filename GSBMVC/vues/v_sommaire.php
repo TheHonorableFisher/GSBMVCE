@@ -23,7 +23,8 @@
             <?php
               if($_SESSION['statut'] === 'Responsable'){
                 echo '<p>---------------------</p>';
-                echo '<a href="index.php?uc=gererPersonnel&action=changerInfos" title="Changer infos personnel">Gérer personnel</a>';
+                echo '<a href="index.php?uc=creerUtilisateur&action=CreerUtilisateur" title="Créer utilisateur">Créer utilisateur</a>';
+                echo '</br><a href="index.php?uc=gererPersonnel&action=changerInfos" title="Changer infos personnel">Gérer personnel</a>';
               }
               if($_SESSION['statut'] === 'Responsable' || $_SESSION['statut'] === 'Délégué'){
                 echo '</br><a href="index.php?uc=suivreFrais&action=afficheMois" title="Suivre fiche de frais">Suivre fiche de frais</a>';
@@ -33,6 +34,9 @@
             <p>---------------------</p>
             <li>
               <a href="index.php?uc=monCompte&action=afficherInformation" title="Mon compte">Mon compte</a>
+            </li>
+            <li>
+              <a href="index.php?uc=modifierUtilisateur&action=modifierUtilisateur" title="Modifier utilisateur">Modifier mes informations</a>
             </li>
             <li>
                 <a href="index.php?uc=changerMDP&action=changerLeMotDePasse" title="Changer le mot de passe">Changer le mot de passe</a>

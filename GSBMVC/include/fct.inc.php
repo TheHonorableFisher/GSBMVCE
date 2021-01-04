@@ -39,7 +39,8 @@ function connecter($id, $nom, $prenom, $adresse, $cp, $ville, $dateEmbauche, $re
 	$_SESSION['secteur'] = $secteur;
 }
 
-function setStatut($statut){
+function setStatut($statut)
+{
 	$_SESSION['statut'] = $statut;
 }
 /**
@@ -237,6 +238,19 @@ function triMoisFiche($tabFiche, $mois)
 		}
 	}
 	return $tabFicheTri;
+}
+
+/**
+ * Concaténation + numéro téléphone
+ * @param $num
+ */
+function concatenerNumero($numero)
+{
+	$numero = ":num";
+	$plus = "+";
+	$numero = $plus . $numero;
+	var_dump($numero);
+	return $numero;
 }
 
 /**

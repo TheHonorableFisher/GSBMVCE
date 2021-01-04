@@ -50,6 +50,48 @@ class PdoGsb
 		}
 		return self::$monPdoGsb;
 	}
+
+	/**
+	 * Générer mot de passe
+	 * @param $nom
+	 * @param $prenom
+	 */
+	public function GenererLogin($newNom, $newPrenom)
+	{
+		$longeur = strlen($newPrenom);
+		$newPrenom = substr($newPrenom, 0, $longeur - ($longeur - 1));
+		$login = $newPrenom . $newNom;
+		$strReq =	"INSERT INTO visiteur (login) values :login";
+		var_dump($login);
+		return $login;
+		$req = $this->monPdo->prepare($strReq);
+		$req->bindParam(':login', $login);
+		$req->execute();
+	}
+
+	/**
+	 * Générer mot de passe
+	 * @param $mdp 
+	 */
+	public function GenererMDP()
+	{
+		// Liste des caractères possibles
+		$cars = "azertyiopqsdfghjklmwxcvbn0123456789";
+		$mdp = '';
+		$long = strlen($cars);
+		srand((float)microtime() * 1000000);
+		//Initialise le générateur de nombres aléatoires
+		for ($i = 0; $i < 8; $i++) {
+			$mdp = $mdp . substr($cars, rand(0, $long - 1), 1);
+		}
+		//var_dump($mdp);
+		return $mdp;
+		$strReq =	"INSERT INTO visiteur (mdp) values $mdp ";
+		$req = $this->monPdo->prepare($strReq);
+		$req->bindParam(':mdp', $mdp);
+		$req->execute();
+	}
+
 	/**
 	 * Change le mot de passe pour un utilisateur donné
 	 * 
@@ -95,6 +137,23 @@ class PdoGsb
 		} catch (PDOException $e) {
 			echo "Echec lors de la vérification du mot de passe : " . $e->getMessage();
 		}
+	}
+
+	/**
+	 * Modifier un utilisateur
+	 * nouvelle valeur
+	 */
+
+
+	public function ModifierVisiteur($newNum, $newAdr, $newcP, $newVille)
+	{
+		$strReq = "UPADTE visiteur SET tele = $newNum , adresse = $newAdr,cp = $newcP , ville = $newVille";
+		$req = $this->monPdo->prepare($strReq);
+		$req->bindParam(':tele', $newNum);
+		$req->bindParam(':adresse', $newAdr);
+		$req->bindParam(':cp', $newCP);
+		$req->bindParam(':ville', $newVille);
+		$req->execute();
 	}
 
 	/**
@@ -506,7 +565,8 @@ class PdoGsb
 		return $montant;
 	}
 
-	public function getFiche($role,$type){
+	public function getFiche($role, $type)
+	{
 		if ($role == 'Délégué') {
 			$region = $_SESSION['region'];
 
@@ -516,12 +576,11 @@ class PdoGsb
 			INNER JOIN visiteur ON visiteur.id = fichefrais.idVisiteur 
 			WHERE idEtat = :type AND vaffectation.aff_role = 'Visiteur' AND vaffectation.aff_reg = :region";
 			$req = $this->monPdo->prepare($strReq);
-			$req->bindParam(':type',$type);
-			$req->bindParam(':region',$region);
+			$req->bindParam(':type', $type);
+			$req->bindParam(':region', $region);
 			$req->execute();
 			return $req->fetchAll();
-		}
-		else {
+		} else {
 			$secteur = $_SESSION['secteur'];
 
 			$strReq = "SELECT DISTINCT visiteur.nom, visiteur.prenom,mois,nbJustificatifs,montantValide,dateModif 
@@ -530,24 +589,25 @@ class PdoGsb
 			INNER JOIN visiteur ON visiteur.id = fichefrais.idVisiteur 
 			WHERE idEtat = :type AND vaffectation.aff_sec = :secteur";
 			$req = $this->monPdo->prepare($strReq);
-			$req->bindParam(':type',$type);
-			$req->bindParam(':secteur',$secteur);
+			$req->bindParam(':type', $type);
+			$req->bindParam(':secteur', $secteur);
 			$req->execute();
 			return $req->fetchAll();
 		}
 	}
 
-	public function setValider($nom,$date){
+	public function setValider($nom, $date)
+	{
 		$strReq = "SELECT id FROM visiteur WHERE nom = :nom";
 		$req = $this->monPdo->prepare($strReq);
-		$req->bindParam(':nom',$nom);
+		$req->bindParam(':nom', $nom);
 		$req->execute();
 		$id = $req->fetchAll();
 
 		$strReq2 = "UPDATE fichefrais SET idEtat = 'VA' WHERE idVisiteur = :id AND mois = :date";
 		$req2 = $this->monPdo->prepare($strReq2);
-		$req2->bindParam(':id',$id[0]['id']);
-		$req2->bindParam(':date',$date);
+		$req2->bindParam(':id', $id[0]['id']);
+		$req2->bindParam(':date', $date);
 		$req2->execute();
 	}
 }
